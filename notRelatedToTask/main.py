@@ -68,24 +68,38 @@ class Field:
                 field2.cells[i][j] = Cell(i, j, 0)
         self.cells = field2.cells
 
+    def print(self):
+        for i in self.cells:
+            for j in i:
+                print(j.alive, end=' ')
+            print()
+
 
 field = Field()
 
-# TODO post on github
-
 
 def main():
-    iterations = 0
-    while tests.check_evolution(field, iterations) == 1:
-        time.sleep(1)
-        for event in pg.event.get():
-            if event.type == QUIT:
-                quit(0)
-        field.draw()
-        pg.display.update()
-        field.update()
-        tests.states.append(field.cells)
-        iterations += 1
+    for i in range(root.get_width() * root.get_height()):
+        iterations = 0
+        while tests.check_evolution(field, iterations) == 1:
+            # time.sleep(1)
+            for event in pg.event.get():
+                if event.type == QUIT:
+                    quit(0)
+            field.draw()
+            pg.display.update()
+            field.update()
+            tests.states.append(field.cells)
+            iterations += 1
+        field.__init__()
+        tests.states.clear()
+    mx = -100000000000
+    for i in tests.configs:
+        if i > mx:
+            mx = i
+    tests.configs[mx].print()
+    print()
+    print(mx)
 
 
 main()
