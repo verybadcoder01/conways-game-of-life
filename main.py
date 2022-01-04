@@ -71,8 +71,9 @@ field = Field() # создаём основное поле
 
 
 def main():
+    sleep_time = int(input("Какой временной промежуток вы хотите между итерациями? (Целое число, >= 0)))
     while 1:
-        time.sleep(0.5)
+        time.sleep(sleep_time)
         for event in pg.event.get(): # чтобы ОС не думала, что программа "зависла"
             if event.type == QUIT:
                 quit(0)
